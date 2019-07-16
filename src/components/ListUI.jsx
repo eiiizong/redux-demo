@@ -19,7 +19,7 @@ const ListUI = (props) => {
           dataSource={list}
           renderItem={
             (item, index) => (
-              <List.Item onClick={() => { deleteItem(index) }}>
+              <List.Item key={item + index} onClick={(e) => { deleteItem(index, e) }}>
                 {item}
               </List.Item>
             )

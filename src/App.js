@@ -2,63 +2,48 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import ListUI from './components/ListUI'
 
-import store from './store'
+import { connect } from 'react-redux'
+
+// import store from './store'
+
 import { changeInputAction, addItemAction, deleteItemAction, getDataAction } from './store/createActions'
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = store.getState()
-    this.updataState = this.updataState.bind(this)
-    this.changeInputValue = this.changeInputValue.bind(this)
-    this.clickAddItemButton = this.clickAddItemButton.bind(this)
-    store.subscribe(this.updataState)
-  }
   componentDidMount () {
     axios.get('https://easy-mock.com/mock/5d09a55b0ac790072280317a/test/').then(res => {
       const data = res.data.data
       const action = getDataAction(data)
-      store.dispatch(action)
+      // store.dispatch(action)
     })
   }
   render () {
-    const { list } = this.state
     return (
-      <ListUI
-        list={list}
-        changeInputValue={this.changeInputValue}
-        inputValue={this.state.inputValue}
-        clickAddItemButton={this.clickAddItemButton}
-        deleteItem={this.deleteItem}
-      />
+      <ListUI {...this.props} />
     )
-  }
-
-  updataState () {
-    const { inputValue, list } = store.getState()
-    this.setState({
-      inputValue,
-      list
-    })
-  }
-
-  changeInputValue (e) {
-    const value = e.target.value
-    const action = changeInputAction(value)
-    store.dispatch(action)
-  }
-
-  clickAddItemButton () {
-    if (this.state.inputValue !== '') {
-      const action = addItemAction()
-      store.dispatch(action)
-    }
-  }
-
-  deleteItem (index) {
-    const action = deleteItemAction(index)
-    store.dispatch(action)
   }
 }
 
-export default App;
+const mapStateToProps = (state, ownProps) => {
+  return {
+    inputValue: state.inputValue,
+    list: state.list
+  }
+}
+
+const mapDispachToProps = (dispatch, ownProps) => {
+  console.log('ownProps, ', ownProps)
+  return {
+    clickAddItemButton: () => {
+      dispatch(addItemAction())
+    },
+    changeInputValue: (e) => {
+      const value = e.target.value
+      dispatch(changeInputAction(value))
+    },
+    deleteItem: (index) => {
+      dispatch(deleteItemAction(index))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispachToProps)(App);
