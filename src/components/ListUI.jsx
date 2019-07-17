@@ -3,6 +3,7 @@ import { Input, Button, List } from 'antd';
 import 'antd/dist/antd.css'
 
 const ListUI = (props) => {
+  // console.log('compont render', props)
   const { changeInputValue, inputValue, clickAddItemButton, list, deleteItem } = props
   return (
     <div style={{ margin: '40px' }}>
@@ -19,7 +20,7 @@ const ListUI = (props) => {
           dataSource={list}
           renderItem={
             (item, index) => (
-              <List.Item key={item + index} onClick={(e) => { deleteItem(index, e) }}>
+              <List.Item onClick={() => { deleteItem(index) }}>
                 {item}
               </List.Item>
             )

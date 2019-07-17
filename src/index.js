@@ -15,7 +15,3 @@ const renderDOM = () => ReactDOM.render(
 );
 
 renderDOM()
-
-// store.subscribe(() => {
-//   renderDOM()
-// })

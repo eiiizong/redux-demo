@@ -7,22 +7,30 @@ const defaultState = {
 }
 
 export default (state = defaultState, action) => {
-  let newState = { ...state }
   switch (action.type) {
     case CHANGE_INPUT_VALUE:
-      newState.inputValue = action.value
-      return newState
+      return {
+        ...state,
+        inputValue: action.value
+      }
     case ADD_ITEM:
-      newState.list.push(newState.inputValue)
-      newState.inputValue = ''
-      return newState
+      return {
+        ...state,
+        list: [...state.list, state.inputValue],
+        inputValue: ''
+      }
     case DELETE_ITEM:
-      newState.list.splice(action.index, 1)
-      return newState
+      return {
+        ...state,
+        list: state.list.filter((item, index) => {
+          return index !== action.index
+        })
+      }
     case GET_DATA:
-      newState.list = action.data.list
-      newState.inputValue = action.data.inputValue
-      return newState
+      return {
+        ...state,
+        ...action.data
+      }
     default:
       return state
   }

@@ -1,25 +1,23 @@
 import React, { Component } from 'react'
-import axios from 'axios'
+
 import ListUI from './components/ListUI'
 
 import { connect } from 'react-redux'
 
-// import store from './store'
-
-import { changeInputAction, addItemAction, deleteItemAction, getDataAction } from './store/createActions'
+import { changeInputAction, addItemAction, deleteItemAction, getDataAsyncAction } from './store/createActions'
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {}
+  }
   componentDidMount () {
-    axios.get('https://easy-mock.com/mock/5d09a55b0ac790072280317a/test/').then(res => {
-      const data = res.data.data
-      const action = getDataAction(data)
-      // store.dispatch(action)
-    })
+    getDataAsyncAction(this.props.dispatch)
   }
   render () {
     return (
       <ListUI {...this.props} />
-    )
+    );
   }
 }
 
@@ -31,7 +29,7 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispachToProps = (dispatch, ownProps) => {
-  console.log('ownProps, ', ownProps)
+  // console.log('ownProps, ', ownProps)
   return {
     clickAddItemButton: () => {
       dispatch(addItemAction())
@@ -42,7 +40,8 @@ const mapDispachToProps = (dispatch, ownProps) => {
     },
     deleteItem: (index) => {
       dispatch(deleteItemAction(index))
-    }
+    },
+    dispatch
   }
 }
 
