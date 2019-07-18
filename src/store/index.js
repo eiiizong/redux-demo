@@ -3,24 +3,24 @@ import reducer from './reducer'
 
 import logger from 'redux-logger'
 
-import reduxThunk from 'redux-thunk'
+import thunk from 'redux-thunk'
 
-console.log('createStore', createStore)
-console.log('thunk', reduxThunk)
-console.log('compose', compose)
-console.log('compose', compose()(12))
-console.log('applyMiddleware', applyMiddleware)
+// console.log('createStore', createStore)
+// console.log('thunk', thunk)
+// console.log('compose', compose)
+// console.log('compose', compose()(12))
+// console.log('applyMiddleware', applyMiddleware)
 
 const composeEnHancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
-const middleware = [
-  reduxThunk,
-  logger
+const middlewares = [
+  logger,
+  thunk
 ]
 
 const store = createStore(
   reducer,
-  composeEnHancers(applyMiddleware(...middleware))
+  composeEnHancers(applyMiddleware(...middlewares))
 )
 
 export default store

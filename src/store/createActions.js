@@ -1,5 +1,5 @@
 import { CHANGE_INPUT_VALUE, ADD_ITEM, DELETE_ITEM, GET_DATA } from './actionTypes'
-import axios from 'axios'
+import axios from '../utils/axios'
 
 const changeInputAction = (value) => {
   return {
@@ -29,13 +29,10 @@ const getDataAction = (data) => {
 
 const getDataAsyncAction = (data) => {
   return (dispatch, getState) => {
-    axios.get('https://easy-mock.com/mock/5d09a55b0ac790072280317a/test/').then(res => {
-      const data = res.data.data
-      console.log(data)
-      dispatch(getDataAction(data))
-    }).catch(err => {
-      console.error(err)
-    })
+    dispatch({ type: 'request' })
+    const success = (data) => dispatch(getDataAction(data))
+    const fail = (err) => dispatch({ type: 'error' })
+    axios('', success, fail)
   }
 }
 

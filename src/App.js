@@ -12,7 +12,7 @@ class App extends Component {
     this.state = {}
   }
   componentDidMount () {
-    getDataAsyncAction(this.props.dispatch)
+    this.props.dispatch(getDataAsyncAction())
   }
   render () {
     return (
