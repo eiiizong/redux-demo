@@ -3,7 +3,9 @@ import reducer from './reducer'
 
 import logger from 'redux-logger'
 
-import thunk from 'redux-thunk'
+// import thunk from 'redux-thunk'
+
+import saga from 'redux-saga'
 
 // console.log('createStore', createStore)
 // console.log('thunk', thunk)
@@ -15,7 +17,8 @@ const composeEnHancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
 const middlewares = [
   logger,
-  thunk
+  saga,
+  // thunk
 ]
 
 const store = createStore(
