@@ -25,10 +25,15 @@ const getDataAction = (data) => {
   }
 }
 
-
+const getDataAsyncAction = () => {
+  return {
+    type: GET_DATA
+  }
+}
 export {
   changeInputAction,
   addItemAction,
   deleteItemAction,
-  getDataAction
+  getDataAction,
+  getDataAsyncAction
 }

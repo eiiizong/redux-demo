@@ -1,16 +1,24 @@
-import { put, call } from 'redux-saga/effects'
-import { GET_DATA } from '../store/actionTypes'
-// import axios from 'axios'
+import {
+  put,
+  // takeEvery, 
+  // takeLatest 
+} from 'redux-saga/effects'
+// import { GET_DATA } from '../store/actionTypes'
 
-const delay = (ms) => new Promise(res => setTimeout(res, ms))
+import { getDataAction } from '../store/createActions'
+import axios from 'axios'
 
+// const delay = (ms) => new Promise(res => setTimeout(res, ms))
+
+const getTodoList = function* () {
+  const res = yield axios.get('https://easy-mock.com/mock/5d09a55b0ac790072280317a/test/')
+  const action = getDataAction(res.data.data)
+  yield put(action)
+}
 
 const mySaga = function* () {
-  yield delay(0)
-  yield put({ type: 'request-start' })
-  const data = yield call(fetch, 'https://easy-mock.com/mock/5d09a55b0ac790072280317a/test/')
-  console.log(data)
-  yield put({ type: GET_DATA, data })
+  // yield takeEvery(GET_DATA, getTodoList)
+  yield getTodoList()
 }
 
 export default mySaga

@@ -4,7 +4,7 @@ import ListUI from './components/ListUI'
 
 import { connect } from 'react-redux'
 
-import { changeInputAction, addItemAction, deleteItemAction } from './store/createActions'
+import { getDataAsyncAction, changeInputAction, addItemAction, deleteItemAction } from './store/createActions'
 
 class App extends Component {
   constructor(props) {
@@ -12,7 +12,7 @@ class App extends Component {
     this.state = {}
   }
   componentDidMount () {
-    // this.props.dispatch(getDataAsyncAction())
+    this.props.getDataAsync()
   }
   render () {
     return (
@@ -41,7 +41,9 @@ const mapDispachToProps = (dispatch, ownProps) => {
     deleteItem: (index) => {
       dispatch(deleteItemAction(index))
     },
-    dispatch
+    getDataAsync: () => {
+      dispatch(getDataAsyncAction())
+    }
   }
 }
 
