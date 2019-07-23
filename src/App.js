@@ -9,10 +9,18 @@ import { getDataAsyncAction, changeInputAction, addItemAction, deleteItemAction 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {}
+    this.state = {
+      isRequest: false
+    }
   }
   componentDidMount () {
-    this.props.getDataAsync()
+    console.log('this props', this.props)
+    if (!this.state.isRequest) {
+      this.props.getDataAsync()
+      this.setState({
+        isRequest: true
+      })
+    }
   }
   render () {
     return (
@@ -21,15 +29,15 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = function (state, ownProps) {
+  // console.log(ownProps) // {}
   return {
     inputValue: state.inputValue,
     list: state.list
   }
 }
 
-const mapDispachToProps = (dispatch, ownProps) => {
-  // console.log('ownProps, ', ownProps)
+const mapDispachToProps = (dispatch) => {
   return {
     clickAddItemButton: () => {
       dispatch(addItemAction())

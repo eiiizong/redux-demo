@@ -1,9 +1,9 @@
 import {
   put,
-  // takeEvery, 
+  takeEvery,
   // takeLatest 
 } from 'redux-saga/effects'
-// import { GET_DATA } from '../store/actionTypes'
+import { GET_DATA } from '../store/actionTypes'
 
 import { getDataAction } from '../store/createActions'
 import axios from 'axios'
@@ -17,8 +17,9 @@ const getTodoList = function* () {
 }
 
 const mySaga = function* () {
-  // yield takeEvery(GET_DATA, getTodoList)
-  yield getTodoList()
+  console.log('mysaga')
+  yield takeEvery(GET_DATA, getTodoList)
+  // yield getTodoList()
 }
 
 export default mySaga
